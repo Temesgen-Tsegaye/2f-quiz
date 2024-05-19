@@ -4,6 +4,7 @@ import CloudIcon from "@mui/icons-material/Cloud";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import { TimeCounter } from "./timer";
+
 export function MobileHeader() {
   return (
     <Box

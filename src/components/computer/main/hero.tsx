@@ -14,16 +14,16 @@ export function Hero() {
        
       }}
     >
-      <Box
-        sx={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          bgcolor: "black",
-          background:
-            "radial-gradient(ellipse at center center, rgba(0, 0, 0, 0) 0%,rgba(0, 0, 0, 0) 20%, rgba(0,0,0,1) 100%)",
-        }}
-      ></Box>
+     <Box sx={{width:'100%',height:'100%',position:'absolute',display:'flex',justifyContent:'end',
+        background:'linear-gradient(to bottom right, rgba(16, 15, 46, 1), rgba(16, 15, 46, 0) 40%, rgba(16, 15, 46, 0.6) 100%)'}}>
+        </Box>
+        <Box sx={{width:'100%',height:'100%',position:'absolute',display:'flex',justifyContent:'end',
+        background:'linear-gradient(to top, rgba(16, 15, 46, 1), rgba(16, 15, 46, 0.1) 30%, rgba(16, 15, 46, 0.2) 100%)'}}>
+        </Box>
+        <Box sx={{width:'100%',height:'100%',position:'absolute',display:'flex',justifyContent:'end',
+        background:'linear-gradient(to right, rgba(16, 15, 46, 1), rgba(16, 15, 46, 0.6) 20%, rgba(16, 15, 46, 0.2) 100%)'}}>
+      
+        </Box>
       <Image
         src="/fox.jpg"
         alt="fox.jpg"

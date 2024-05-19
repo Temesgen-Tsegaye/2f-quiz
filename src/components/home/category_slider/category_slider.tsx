@@ -1,62 +1,57 @@
 "use client"
-import React from 'react';
-import { Box } from '@mui/material';
-import { useSearchParams } from 'next/navigation';
-import  {typeData}  from '@/utils/data/type'
-import Image from 'next/image';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import { typeData } from "@/utils/data/type";
+import Image from "next/image";
+import { useSearchParams,useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Typography } from "@mui/material";
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react';
-import Link from 'next/link';
+import Link from "next/link";
+export default function MobileTypeScroll() {
 
-export default function TypeSlider() {
-       
-              const searchParams=useSearchParams()
-              const channel=searchParams.get("channel")||"HBO"
-              const router = useRouter();
+  const searchParams=useSearchParams()
+  const channel=searchParams.get("channel")||"HBO"
+  const router = useRouter();
 
-              const type=searchParams.get("type")
+  const type=searchParams.get("type")
 
-              useEffect(() => {
-                const searchParams = new URLSearchParams(window.location.search);
-                
-                if (!searchParams.has('type')) {
-                  searchParams.set('type', 'Live TV');
-                  
-                  const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-                  router.replace(newUrl, undefined, );
-                }
-              }, [router]);
-             
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    
+    if (!searchParams.has('type')) {
+      searchParams.set('type', 'Live TV');
+      
+      const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+      router.replace(newUrl, undefined, );
+    }
+  }, [router]);
+
   return (
     <Box
       sx={{
-        display: 'flex',
-        overflowX: 'auto',
-        gap: '2rem',
-        position: 'absolute',
-        bottom: '-7.5vw',
-        width:'100%',
-        left:0,
-        whiteSpace: 'nowrap',
-        scrollBehavior: 'smooth',
-        // Hide scrollbars
-        scrollbarWidth: 'none', // Firefox
-        '&::-webkit-scrollbar': {
-          display: 'none', // Safari and Chrome
+        display: "flex",
+        alignItems:'center',
+        gap: "1rem",
+        bgcolor: "inherit",
+        width: "100vw",
+        overflowX: "auto",
+        whiteSpace: "nowrap",
+        marginTop: "0.5rem",
+        scrollbarWidth: "none" /* Firefox */,
+        "&::-webkit-scrollbar": {
+          display: "none" /* Safari and Chrome */,
         },
+        scrollBehavior: "smooth",
+        paddingX:'1rem',
+        
+        
       }}
     >
-      {/* {Array.from({ length: 21 }).map((_, index) => (
-        <Box key={index} sx={{ width: '15vw', height: '18vw', bgcolor: 'yellow', flexShrink: 0 }}>
-          Box
-        </Box>
-      ))} */}
-        {typeData.map((items, index) => (
+      {typeData.map((items, index) => (
 
-          <Link href={`?${new URLSearchParams({channel,type:items.name,})}`}>
-          
-          <Box
+        <Link href={`?${new URLSearchParams({channel,type:items.name,})}`} >
+
+<Box
           key={index}
           sx={{
             width: `${items.name==type?'170px':'160px'}`,
@@ -114,8 +109,7 @@ export default function TypeSlider() {
             </Typography>
           </Box>
         </Box>
-          
-          </Link>
+        </Link>
        
       ))}
     </Box>

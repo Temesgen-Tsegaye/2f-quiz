@@ -1,23 +1,24 @@
 
 
 
-export const data=["/channels/abcN.svg",
+export const data=[
 
-"/channels/disny.svg",
-"/channels/espn.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/fox.svg",
-"/channels/HBO.svg",
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/fox.svg",name:'Fox'},
+{url:"/channels/HBO.svg",name:'HBO'},
+{url:"/channels/HBO.svg",name:'HBO'},
+
+
 
 ]

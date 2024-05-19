@@ -6,8 +6,8 @@ export function Main() {
 
   return (
     <Box sx={{width:'70vw'}}>
-        <Header/>
-      <Hero/>
+         <Header/>
+      <Hero/> 
     </Box>
   )
 }
