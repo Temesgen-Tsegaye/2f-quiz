@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { Box } from '@mui/material';
 
-export const TimeCounter = () => {
+export const TimeCounter = ({type}:{type:boolean}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export const TimeCounter = () => {
     return () => clearInterval(intervalId); // Cleanup on component unmount
   }, []);
 
-  const formattedTime = format(currentTime, 'h:mm aa');
+  const formattedTime = type?format(currentTime, "h a EEEE, MMM d"): format(currentTime, 'h:mm aa');
 
   return (
     <Box>

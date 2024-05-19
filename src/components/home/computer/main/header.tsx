@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { data } from "@/utils/data/channel_image";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { TimeCounter } from "@/components/global/home/header/timer";
+import { TimeCounter } from "@/components/home/header/timer";
 import SearchIcon from "@mui/icons-material/Search";
 import CloudIcon from "@mui/icons-material/Cloud";
 export function Header() {
@@ -29,7 +29,7 @@ export function Header() {
         width={100}
         height={100}
         alt="aaa"
-        src={`/channels/${channel.name}.svg`}
+        src={`/channels/${channel?.name}.svg`}
       />
 
       <Box
