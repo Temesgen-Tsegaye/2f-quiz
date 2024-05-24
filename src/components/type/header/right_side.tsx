@@ -8,11 +8,29 @@ export  function RightSide() {
   return (
     <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between',width:'40%'}}>
     
-    <Box>
+    <Box   sx={{
+          "@media (max-width: 601px)": {
+            display: "none",
+          },}} >
     <CloudIcon/>
     <Box component="span">22&deg;C</Box>
    </Box>
-   <TimeCounter type={true}/>
+   
+
+   <Box component="span"  sx={{
+          "@media (max-width: 601px)": {
+            display: "none",
+          },}}>
+
+   <TimeCounter  
+  type={true} 
+  
+/>
+
+   </Box>
+
+
+   
    <SearchIcon  sx={{width:'3rem',height:'3rem', padding:'0.8rem' ,borderRadius:'50%',bgcolor:'#08071a',opacity:0.5}} />
     <Image width={50} height={50} src={`/jsdjsd`} alt='img' style={{borderRadius:'50%',backgroundColor:'red'}} />
       

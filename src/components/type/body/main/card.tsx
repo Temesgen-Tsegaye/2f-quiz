@@ -14,7 +14,10 @@ export function MovieCard() {
      height: "50vh",
      width:'20vw',
      flexShrink:0,
-    zIndex:1
+    zIndex:1,
+    "@media (max-width: 601px)": {
+      width: "100%",
+    }
     }}>
       <Box
         sx={{
@@ -25,18 +28,20 @@ export function MovieCard() {
           backgroundImage: "url(https://upload.wikimedia.org/wikipedia/commons/8/8b/Red_Fox_%28Vulpes_vulpes%29_%284%29.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          filter:'blur(1px)',
+          filter: 'grayscale(40%)',
+        '&:hover': {
+          filter: 'none',
+        },
           zIndex:-10
         }}
       ></Box>
-      <Box>hey</Box>
+      <Box sx={{textAlign:'end',fontSize:"1rem",fontWeight:600,color:'white'}}>hey</Box>
 
-      <Box>
-        <Box sx={{ color: "white" }}>New</Box>
-        <Typography></Typography>
-
-        <Box sx={{ display: "flex" }}>
-          <FaCirclePlay /> <IoMdTime /> <FaHeart />
+      <Box sx={{display:'flex',flexDirection:'column',gap:"1rem"}}>
+        <Box sx={{ color: "white",bgcolor:"#e3bb0b",padding:"0.25rem",width:"4rem",borderRadius:"5px",textAlign:'center',fontSize:"0.8rem" }}>New</Box>
+  <Box sx={{fontWeight:700,color:'white'}}>Name</Box>
+        <Box sx={{ display: "flex",gap:"0.5rem",color:'white' }}>
+          <FaCirclePlay  size={25}/> <IoMdTime size={25}/> <FaHeart size={25} />
         </Box>
       </Box>
     </Paper>

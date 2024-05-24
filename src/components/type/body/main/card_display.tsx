@@ -18,27 +18,18 @@ export default function CardDisplay() {
         '&::-webkit-scrollbar': {
           display: 'none', // Safari and Chrome
         },
+        "@media (max-width: 601px)": {
+         flexDirection:"column",
+         overflowY: 'auto',
+         whiteSpace: 'nowrap',
+         scrollBehavior: 'smooth',
+         height:"75vh"
+
+        }
       }}
     >
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
-        <MovieCard/>
+        {[1,2,3,4,5,6,7,8].map(()=> <MovieCard/>)}
+       
     </Box>
   )
 }

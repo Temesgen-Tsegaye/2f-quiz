@@ -4,7 +4,9 @@ import Tabs from './tabs'
 import CardDisplay from './card_display'
 export default function Wrapper() {
   return (
-    <Box sx={{width:'80vw',display:'flex',flexDirection:'column',gap:'2rem'}}>
+    <Box sx={{width:'80vw',display:'flex',flexDirection:'column',gap:'2rem',"@media (max-width: 601px)": {
+      height:"80vh",
+    },}}>
 
         <Tabs/>
         <CardDisplay/>

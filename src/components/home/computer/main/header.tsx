@@ -44,7 +44,7 @@ export function Header() {
       >
         {" "}
         <Box sx={{ display: "flex", gap: "0.8rem" }}>
-          <TimeCounter />
+          <TimeCounter  type={false}/>
           <Box sx={{ display: "flex" }}>
             <CloudIcon sx={{ marginRight: "0.2rem", marginBottom: "0.2rem" }} />
             <span>22&deg;C</span>

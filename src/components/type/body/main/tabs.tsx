@@ -16,13 +16,19 @@ export default function CategoryTabs() {
       <Tabs
         value={value}
         onChange={handleChange}
+        variant='scrollable'
         textColor="secondary"
         indicatorColor="secondary"
         aria-label="secondary tabs example"
+        sx={{color:"white",
+        "@media (max-width: 601px)": {
+          height:"5vh",
+        },
+        }}
       >
-        <Tab value="one" label="Item One" />
-        <Tab value="two" label="Item Two" />
-        <Tab value="three" label="Item Three" />
+        <Tab sx={{color:"white"}} value="one" label="Item One" />
+        <Tab sx={{color:"white"}} value="two" label="Item Two" />
+        <Tab sx={{color:"white"}} value="three" label="Item Three" />
       </Tabs>
     </Box>
   );
