@@ -32,16 +32,16 @@ const authOptions: NextAuthConfig = {
   ],
   basePath: BASE_PATH,
   secret: process.env.NEXTAUTH_SECRET,
-  callbacks: {
-    jwt({ token, user }) {
-      if(user) token.role = user.role
-      return token
-    },
-    session({ session, token }) {
-      session.user.role = token.role
-      return session
-    }
-  }
+  // callbacks: {
+  //   jwt({ token, user }) {
+  //     if(user) token.role = user.role
+  //     return token
+  //   },
+  //   session({ session, token }) {
+  //     session.user.role = token.role
+  //     return session
+  //   }
+  // }
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);
