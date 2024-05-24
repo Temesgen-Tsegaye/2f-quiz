@@ -7,6 +7,7 @@ export const config = {
 
 export default auth((req) => {
   const reqUrl = new URL(req.url);
+  console.log(req.auth,'pro')
   if (!req.auth) {
     return NextResponse.redirect(
       new URL(
