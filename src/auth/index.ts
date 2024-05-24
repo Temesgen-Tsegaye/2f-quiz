@@ -17,6 +17,9 @@ const authOptions: NextAuthConfig = {
             phonenumber: credentials.phoneNumber as string,
           },
         });
+      if(user?.phonenumber!=credentials.phoneNumber){
+        return null
+      }
 
         return user
           ? { id: user.id, name: user.name, email: user.email, role: user.type }
