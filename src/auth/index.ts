@@ -1,6 +1,3 @@
-
-
-
 import NextAuth, { User, NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/config/prisma-client";
@@ -11,37 +8,40 @@ const authOptions: NextAuthConfig = {
     Credentials({
       name: "Credentials",
       credentials: {
-        phoneNumber: { label: "phoneNumber", type: "text", placeholder: "jsmith" },
+        phoneNumber: { label: "Phone Number", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials): Promise<any> {
-        
+        const user = await prisma.user.findUnique({
+          where: {
+            phonenumber: credentials.phoneNumber as string,
+          },
+        });
 
-        const user=await prisma.user.findUnique({
-          where:{
-            phonenumber:credentials.phoneNumber as string
-          }
-        })
-       
-        console.log(user,'uss')
         return user
-          ? { id: user.id, name: user.name, email:user.email,role:user.type  }
+          ? { id: user.id, name: user.name, email: user.email, role: user.type }
           : null;
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token, user }) {
+      if (session.user) {
+        session.user.id = token.id;
+        session.user.role = token.role;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+      }
+      return token;
+    },
+  },
   basePath: BASE_PATH,
   secret: process.env.NEXTAUTH_SECRET,
-  // callbacks: {
-  //   jwt({ token, user }) {
-  //     if(user) token.role = user.role
-  //     return token
-  //   },
-  //   session({ session, token }) {
-  //     session.user.role = token.role
-  //     return session
-  //   }
-  // }
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);
