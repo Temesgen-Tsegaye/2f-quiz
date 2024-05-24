@@ -4,19 +4,34 @@ import Box from "@mui/material/Box";
 import { data } from "@/utils/data/channel_image";
 import Image from "next/image";
 import { Typography } from "@mui/material";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-export function ChannelScroll() {
+export function ChannelScroll({
+  channel,
+}: {
+  channel: {
+    id: number;
+    name: string;
+    status: boolean;
+  }[];
+}) {
   const searchParams = useSearchParams();
-  const type=searchParams.get("type") || "Live Tv"
-  const channel = searchParams.get("channel");
-  const pathName = usePathname();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const params = new URLSearchParams(searchParams);
+
+  function setPrams(name: string) {
+    const params = new URLSearchParams(searchParams);
+    params.set("channel", name);
+    replace(`${pathname}?${params.toString()}`);
+  }
+  console.log(pathname, "ppt");
   return (
     <Box
       sx={{
         position: "relative",
         height: "100vh",
-        width: "20%",
+        width: "30%",
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
@@ -36,43 +51,62 @@ export function ChannelScroll() {
           "inset 10px 0 10px -5px rgba(16, 15, 46, 0.5), inset -10px 0 10px -5px rgba(16, 15, 46, 0.5)",
       }}
     >
-      {data.map((items, index) => (
-        <Link href={`?${new URLSearchParams({channel:items.name, type,})}`}>
-          <Box
-            sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-            onClick={() => {
-              const params = new URLSearchParams(searchParams.toString());
-              params.set("channel", items.name);
+      {channel.map((items, index) => (
+        <Box  
+
+        key={items.id}
+          sx={{ display: "flex", alignItems: "center", gap: "0.5rem",pointerOnHover: {
+            cursor: 'pointer',
+            transition: 'transform 0.2s ease-in-out',
+            '&:hover': {
+              transform: 'scale(1.1)', 
+            },
+          }, }}
+          onClick={() => {
+            setPrams(items.name);
+          }}
+        >
+          <Image
+            width={50}
+            height={50}
+            src={
+              items.name
+                ? `/channels/${items.name}.svg`
+                : `/channels/chdefault.svg`
+            }
+            alt="Ch"
+            style={{
+              width: `${items.name == params.get("channel") ? "4rem" : "3rem"}`,
+              height: `${
+                items.name == params.get("channel") ? "4rem" : "3rem"
+              }`,
+              borderRadius: "50%",
+              borderColor: `${
+                items.name == params.get("channel")
+                  ? "rgba(99,102,241,0.5)"
+                  : ""
+              }`,
+              borderWidth: `${
+                items.name == params.get("channel") ? "3px" : ""
+              }`,
+              color: "white",
+              padding: "0.5rem",
+              background: "rgb(30 27 75)",
+              opacity: 0.8,
+              transition: "transform 0.2s ease-in-out",
+            }}
+            className="active:scale-[1.2]"
+          />
+          <Typography
+            sx={{
+              fontSize: `${
+                items.name == params.get("channel") ? "1.5rem" : "1rem"
+              }`,
             }}
           >
-            <Image
-              width={50}
-              height={50}
-              src={`${items.url}`}
-              alt="Ch"
-              style={{
-                width: `${items.name == channel ? "4rem" : "3rem"}`,
-                height: `${items.name == channel ? "4rem" : "3rem"}`,
-                borderRadius: "50%",
-                borderColor: `${
-                  items.name == channel ? "rgba(99,102,241,0.5)" : ""
-                }`,
-                borderWidth: `${items.name == channel ? "3px" : ""}`,
-                color: "white",
-                padding: "0.5rem",
-                background: "rgb(30 27 75)",
-                opacity: 0.8,
-                transition: "transform 0.2s ease-in-out",
-              }}
-              className="active:scale-[1.2]"
-            />
-            <Typography
-              sx={{ fontSize: `${items.name == channel ? "1.5rem" : "1rem"}` }}
-            >
-              {items.name}
-            </Typography>
-          </Box>
-        </Link>
+            {items.name}
+          </Typography>
+        </Box>
       ))}
     </Box>
   );

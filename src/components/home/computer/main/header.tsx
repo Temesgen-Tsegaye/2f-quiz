@@ -1,14 +1,18 @@
-"use client";
+"use client"
 import React from "react";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { data } from "@/utils/data/channel_image";
+// import { data } from "@/utils/data/channel_image";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { TimeCounter } from "@/components/home/header/timer";
 import SearchIcon from "@mui/icons-material/Search";
 import CloudIcon from "@mui/icons-material/Cloud";
-export function Header() {
+export function Header({data}:{data:{
+  id: number;
+  name: string;
+  status: boolean;
+}[]}) {
   const searchParams = useSearchParams();
   const [channel] = data.filter(
     (items) => items.name == searchParams.get("channel")
@@ -20,7 +24,7 @@ export function Header() {
         zIndex: 10,
         display: "flex",
         justifyContent: "space-between",
-        width: "70vw",
+        width: "60vw",
         height: "10vh",
         
       }}

@@ -3,28 +3,29 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { typeData } from "@/utils/data/type";
 import Image from "next/image";
-import { useSearchParams,useRouter } from "next/navigation";
+import { useSearchParams,useRouter ,usePathname} from "next/navigation";
 import { useEffect } from "react";
 import { Typography } from "@mui/material";
 import Link from "next/link";
 export default function MobileTypeScroll() {
 
+
   const searchParams=useSearchParams()
   const channel=searchParams.get("channel")||"HBO"
   const router = useRouter();
+  const pathname=usePathname()
 
   const type=searchParams.get("type")
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    
-    if (!searchParams.has('type')) {
-      searchParams.set('type', 'Live TV');
-      
-      const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-      router.replace(newUrl, undefined, );
-    }
-  }, [router]);
+async  function setPrams(name: string) {
+    const params = new URLSearchParams(searchParams);
+    params.set("type", name);
+    router.replace(`${pathname}?${params.toString()}`);
+  }
+
+
+
+
 
   return (
     <Box
@@ -49,13 +50,12 @@ export default function MobileTypeScroll() {
     >
       {typeData.map((items, index) => (
 
-        <Link href={`?${new URLSearchParams({channel,type:items.name,})}`} >
 
 <Box
           key={index}
           sx={{
-            width: `${items.name==type?'170px':'160px'}`,
-            height: `${items.name==type?'180px':'170px'}`,
+            width: `${'160px'}`,
+            height: `${'170px'}`,
             flexShrink: 0,
             bgcolor: "#1a1b39",
             padding: "1rem",
@@ -63,13 +63,15 @@ export default function MobileTypeScroll() {
             display:'flex',
             flexDirection:'column',
             gap:'1rem',
-            border: `${items.name==type?'2px solid #007bff':''}`, /* Solid blue border */
-            boxShadow: `${items.name==type?'0 0 5px #007bff':''}`, /* Inner blue glow */
+            
             
 
           
 
           }}
+
+          onClick={()=>{
+            setPrams(items.name).then(()=> router.push(`/${items.name}?channel=${searchParams.get("channel")}&type=${items.name}`))}}
          
           
         >
@@ -84,13 +86,8 @@ export default function MobileTypeScroll() {
               borderRadius:'10px'
             }}
           >
-            <Image
-              width={200}
-              height={200}
-              src={`/type/${items.url}`}
-              alt="vv"
-              style={{ color: "white", width: "100%", height: "50%" }}
-            />
+          
+          <items.icon size={40}/>
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -102,14 +99,10 @@ export default function MobileTypeScroll() {
               }}
             >
               <Typography sx={{ fontSize: "1rem" }}>{items.name}</Typography>{" "}
-              <Box component="span">New</Box>
             </Box>
-            <Typography >
-              {items.numberOfContent}
-            </Typography>
+           
           </Box>
         </Box>
-        </Link>
        
       ))}
     </Box>

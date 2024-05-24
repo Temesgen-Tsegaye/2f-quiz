@@ -9,10 +9,35 @@ import { Main } from "@/components/home/computer/main/main";
 import { ChannelScroll} from "@/components/home/computer/channel_side_nac";
 import { CategoryNav } from "@/components/home/computer/category_side_nav";
 import { Box } from "@mui/material";
+import { fetchChannels ,fetchContentBasedOnChannel} from "@/lib/homepage";
+import { Suspense } from "react";
+export default async  function Home({
+  searchParams,
+}: {
+  searchParams?: {
+    channel?: string;
+    type?: string;
+  };
+}) {
+  let channels
+  const channel = searchParams?.channel || '';
+  let heroContent
+                           try{
 
-export default function Home() {
+                               channels=await fetchChannels()
+                               heroContent=await fetchContentBasedOnChannel(channel)
+                               
+                           }catch(e){
+
+                            return <></>
+                           }
+   
   return (
     <Box component="main" sx={{ bgcolor: "#100f2e" }}>
+
+    
+
+      <Suspense key={channel} fallback={<Box>Loading...</Box>}>
       <Box
         sx={{
           "@media (min-width: 601px)": {
@@ -26,7 +51,7 @@ export default function Home() {
       >
         <MobileHeader />
         <HeroMobile />
-        <MobileChannelScroll />
+        {/* <MobileChannelScroll channel={channels} /> */}
         <MobileTypeScroll />
         <Footer />
       </Box>
@@ -41,10 +66,12 @@ export default function Home() {
           width:'100vw'
         }}
       >
-        <CategoryNav />
-        <ChannelScroll />
-        <Main  />
+        <CategoryNav  />
+        <ChannelScroll  channel={channels} />
+        <Main hero={heroContent} channel={channels}   />
       </Box>
+      </Suspense>
+   
     </Box>
   );
 }

@@ -1,7 +1,23 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import {MovieCard}  from './card'
-export default function CardDisplay() {
+export default function CardDisplay({content}:{content:string | {
+  id: number;
+  title: string;
+  duration: number;
+  description: string;
+  channelId: number;
+  typeId: number;
+  categoryId: number;
+  videoUrl: string;
+  coverImageUrl: string;
+  status: boolean;
+}[]}) {
+  
+  if (!Array.isArray(content)) {
+    content = [];
+  }
+  
   return (
     <Box 
     sx={{
@@ -28,7 +44,7 @@ export default function CardDisplay() {
         }
       }}
     >
-        {[1,2,3,4,5,6,7,8].map(()=> <MovieCard/>)}
+        {content.map((item)=> <MovieCard key={item.id} id={item.id} title={item.title} url={item.coverImageUrl} duration={item.duration} />)}
        
     </Box>
   )

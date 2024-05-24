@@ -4,9 +4,23 @@ import Box from "@mui/material/Box";
 import { data } from "@/utils/data/channel_image";
 import Image from "next/image";
 import Link from "next/link";
-export default function MobileChannelScroll() {
+import { useSearchParams,usePathname,useRouter } from "next/navigation";
+export default function MobileChannelScroll({channel}:{channel:{
+  id: number;
+  name: string;
+  status: boolean;
+}[]}) {
   
-  const [selectedId, setSelectdId] = React.useState("");
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const params = new URLSearchParams(searchParams);
+
+  function setPrams(name: string) {
+    const params = new URLSearchParams(searchParams);
+    params.set("channel", name);
+    replace(`${pathname}?${params.toString()}`);
+  }
   return (
     <Box
       sx={{
@@ -28,34 +42,45 @@ export default function MobileChannelScroll() {
         scrollBehavior: "smooth",
         // boxShadow: 'inset 10px 0 10px -5px rgba(16, 15, 46, 0.5), inset -10px 0 10px -5px rgba(16, 15, 46, 0.5)'
       }}
+      
     >
      
 
-      {data.map((items, index) => (
+      {channel.map((items, index) => (
+         <Box  key={items.id}>
+          <Image
+            width={20}
+            height={20}
+            src={
+              items.name
+                ? `/channels/${items.name}.svg`
+                : `/channels/chdefault.svg`
+            }
+            alt="Ch"
+            style={{
+              width: `${items.name == params.get("channel") ? "2rem" : "1rem"}`,
+              height: `${
+                items.name == params.get("channel") ? "2rem" : "1rem"
+              }`,
+              borderRadius: "50%",
+              borderColor: `${
+                items.name == params.get("channel")
+                  ? "rgba(99,102,241,0.5)"
+                  : ""
+              }`,
+              borderWidth: `${
+                items.name == params.get("channel") ? "3px" : ""
+              }`,
+              color: "white",
+              padding: "0.5rem",
+              background: "rgb(30 27 75)",
+              opacity: 0.8,
+              transition: "transform 0.2s ease-in-out",
+            }}
+          />
 
-         <Image
-          width={50}
-          height={50}
-          src={`${items.url}`}
-          alt="Ch"
-          style={{
-            width: `${items.name == selectedId ? "4rem" : "3rem"}`,
-            height: `${items.name == selectedId ? "4rem" : "3rem"}`,
-            borderRadius: "50%",
-            borderColor: `${items.name == selectedId ? "rgba(99,102,241,0.5)" : ""}`,
-            borderWidth: `${items.name == selectedId ? "3px" : ""}`,
-            color: "white",
-            padding: "0.5rem",
-            background: "rgb(30 27 75)",
-            opacity: 0.8,
-            transition: "transform 0.2s ease-in-out",
-            
-          }}
-          className="active:scale-[1.2] w-16 h-16"
-          onClick={() => {
-            setSelectdId(items.name);
-          }}
-        />
+         </Box>
+        
        
       ))}
     </Box>

@@ -23,6 +23,7 @@ export default async  function RootLayout({
 {
 
   const session= await auth()
+  console.log(session,'seee')
 
   return (
     <html lang="en">

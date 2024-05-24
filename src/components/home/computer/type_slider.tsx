@@ -1,32 +1,28 @@
 "use client"
 import React from 'react';
 import { Box } from '@mui/material';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import  {typeData}  from '@/utils/data/type'
 import Image from 'next/image';
 import { Typography } from "@mui/material";
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react';
 import Link from 'next/link';
-
+import { MdLocalMovies } from "react-icons/md";
 export default function TypeSlider() {
        
               const searchParams=useSearchParams()
               const channel=searchParams.get("channel")||"HBO"
               const router = useRouter();
+              const pathname=usePathname()
 
               const type=searchParams.get("type")
 
-              useEffect(() => {
-                const searchParams = new URLSearchParams(window.location.search);
-                
-                if (!searchParams.has('type')) {
-                  searchParams.set('type', 'Live TV');
-                  
-                  const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-                  router.replace(newUrl, undefined, );
-                }
-              }, [router]);
+            async  function setPrams(name: string) {
+                const params = new URLSearchParams(searchParams);
+                params.set("type", name);
+                router.replace(`${pathname}?${params.toString()}`);
+              }
              
   return (
     <Box
@@ -54,7 +50,7 @@ export default function TypeSlider() {
       ))} */}
         {typeData.map((items, index) => (
 
-          <Link href={`?${new URLSearchParams({channel,type:items.name,})}`}>
+         
           
           <Box
           key={index}
@@ -75,7 +71,9 @@ export default function TypeSlider() {
           
 
           }}
-         
+          
+          onClick={()=>{
+              setPrams(items.name).then(()=> router.push(`/${items.name}?channel=${searchParams.get("channel")}&type=${items.name}`))}}
           
         >
           <Box
@@ -89,13 +87,7 @@ export default function TypeSlider() {
               borderRadius:'10px'
             }}
           >
-            <Image
-              width={200}
-              height={200}
-              src={`/type/${items.url}`}
-              alt="vv"
-              style={{ color: "white", width: "100%", height: "50%" }}
-            />
+            <items.icon size={40} />
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -107,15 +99,15 @@ export default function TypeSlider() {
               }}
             >
               <Typography sx={{ fontSize: "1rem" }}>{items.name}</Typography>{" "}
-              <Box component="span">New</Box>
+              {/* <Box component="span">New</Box> */}
             </Box>
-            <Typography >
+            {/* <Typography >
               {items.numberOfContent}
-            </Typography>
+            </Typography> */}
           </Box>
         </Box>
           
-          </Link>
+          
        
       ))}
     </Box>
